@@ -1,0 +1,57 @@
+@import "../variables.scss";
+
+.link {
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 1.2rem;
+
+}
+
+.logo:hover{
+    cursor:pointer;
+}
+
+.copyright {
+    text-align: center;
+    font-weight: 300;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.footer {
+    background-color: $secondary;
+    padding: 2rem;
+    font-weight: 300;
+    font-size: 0.8rem;
+}
+
+.footer p {
+    margin-top:1rem;
+    margin-bottom: 0.1rem;
+}
+
+.socialbox {
+    width:fit-content;
+    display:inline-block;
+    border:2px solid $primary;
+    border-radius:14px;
+    margin-bottom:15px;
+}
+
+.socialboxicon {
+    display:inline-block;
+    margin: 10px;
+    cursor: pointer;
+}
+
+@media (max-width: 1199px)  {
+    .logo  {width:223px;height:60px;}
+}
+
+@media (max-width: 575px)  {
+    .logo  {width:186px;height:50px;}
+}
+
+@media (max-width: 335px)  {
+    .logo  {width:130px;height:30px;}
+}

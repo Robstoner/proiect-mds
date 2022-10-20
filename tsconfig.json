@@ -6,6 +6,11 @@
       "dom.iterable",
       "esnext"
     ],
+    "paths": {
+      "@layouts/*": ["src/layouts/*"],
+      "@database/*": ["src/database/*"],
+      "@styles/*": ["src/styles/*"],
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
