@@ -6,6 +6,83 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Franciza {
+  franciza_id   Int    @id @unique @default(autoincrement())
+  numeDetinator String
+  tara          String
+  nrAngajati    Int
+
+  Magazin Magazin[]
+}
+
+model Magazin {
+  magazin_id      Int      @id @unique @default(autoincrement())
+  locatie         String
+  program         String
+  dataDeschiderii DateTime
+
+  franciza_id Int
+  franciza    Franciza  @relation(fields: [franciza_id], references: [franciza_id])
+  angajat     Angajat[]
+  produse     Produs[]
+  Raion       Raion[]
+}
+
+model Produs {
+  produs_id Int    @id @unique @default(autoincrement())
+  nume      String
+  pret      Int
+
+  oferta_id Int?
+  raion_id  Int
+  oferta    Oferta?   @relation(fields: [oferta_id], references: [oferta_id])
+  magazine  Magazin[]
+  raion     Raion     @relation(fields: [raion_id], references: [raion_id])
+}
+
+model Oferta {
+  oferta_id       Int    @id @unique @default(autoincrement())
+  nume            String
+  procentajScazut Int
+  durata          String
+
+  Produs Produs[]
+  Raion  Raion[]
+}
+
+model Raion {
+  raion_id Int    @id @unique @default(autoincrement())
+  nume     String
+
+  magazin_id Int
+  oferta_id  Int?
+  magazin    Magazin  @relation(fields: [magazin_id], references: [magazin_id])
+  oferta     Oferta?  @relation(fields: [oferta_id], references: [oferta_id])
+  produse    Produs[]
+}
+
+model Angajat {
+  angajat_id    Int      @id @unique @default(autoincrement())
+  nume          String
+  prenume       String
+  dataAngajarii DateTime
+  eligibilPrima Boolean
+
+  magazin_id Int
+  post_id    Int
+  magazin    Magazin @relation(fields: [magazin_id], references: [magazin_id])
+  post       Post    @relation(fields: [post_id], references: [post_id])
+}
+
+model Post {
+  post_id      Int    @id @unique @default(autoincrement())
+  nume         String
+  salariuBrut  Int
+  valoarePrima Int
+
+  angajat Angajat[]
 }
