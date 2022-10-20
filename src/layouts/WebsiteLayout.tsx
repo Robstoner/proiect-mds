@@ -10,19 +10,15 @@ export default function WebsiteLayout({ children }) {
         <>
             <Navbar expand="lg" className="py-3">
                 <Container>
-                    
+                    TOP TEXT
                 </Container>
             </Navbar >
             {children}
-            <Container fluid className={styles.footer}>
+            <Container fluid >
                 <Container className="text-center">
-                    
+                    BOTTOM TEXT
                 </Container>
             </Container>
-            <Container className={styles.copyright}>
-                ©2022 Copyright - Ghlass. All rights reserved.
-            </Container>
         </>
-
     )
 }
