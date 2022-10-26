@@ -16,7 +16,7 @@ model Franciza {
   tara          String
   nrAngajati    Int
 
-  Magazin Magazin[]
+  magazin Magazin[]
 }
 
 model Magazin {
@@ -28,8 +28,7 @@ model Magazin {
   franciza_id Int
   franciza    Franciza  @relation(fields: [franciza_id], references: [franciza_id])
   angajat     Angajat[]
-  produse     Produs[]
-  Raion       Raion[]
+  raion       Raion[]
 }
 
 model Produs {
@@ -37,11 +36,11 @@ model Produs {
   nume      String
   pret      Int
 
-  oferta_id Int?
-  raion_id  Int
-  oferta    Oferta?   @relation(fields: [oferta_id], references: [oferta_id])
-  magazine  Magazin[]
-  raion     Raion     @relation(fields: [raion_id], references: [raion_id])
+  oferta_id     Int?
+  raion_id      Int
+  oferta        Oferta?         @relation(fields: [oferta_id], references: [oferta_id])
+  raion         Raion           @relation(fields: [raion_id], references: [raion_id])
+  istoricOferta IstoricOferta[]
 }
 
 model Oferta {
@@ -50,19 +49,21 @@ model Oferta {
   procentajScazut Int
   durata          String
 
-  Produs Produs[]
-  Raion  Raion[]
+  produs        Produs[]
+  raion         Raion[]
+  istoricOferta IstoricOferta[]
 }
 
 model Raion {
   raion_id Int    @id @unique @default(autoincrement())
   nume     String
 
-  magazin_id Int
-  oferta_id  Int?
-  magazin    Magazin  @relation(fields: [magazin_id], references: [magazin_id])
-  oferta     Oferta?  @relation(fields: [oferta_id], references: [oferta_id])
-  produse    Produs[]
+  magazin_id    Int
+  oferta_id     Int?
+  magazin       Magazin         @relation(fields: [magazin_id], references: [magazin_id])
+  oferta        Oferta?         @relation(fields: [oferta_id], references: [oferta_id])
+  produse       Produs[]
+  istoricOferta IstoricOferta[]
 }
 
 model Angajat {
@@ -72,10 +73,10 @@ model Angajat {
   dataAngajarii DateTime
   eligibilPrima Boolean
 
-  magazin_id Int
-  post_id    Int
-  magazin    Magazin @relation(fields: [magazin_id], references: [magazin_id])
-  post       Post    @relation(fields: [post_id], references: [post_id])
+  post_id     Int
+  magazin     Magazin[]
+  post        Post          @relation(fields: [post_id], references: [post_id])
+  istoricPost IstoricPost[]
 }
 
 model Post {
@@ -84,5 +85,32 @@ model Post {
   salariuBrut  Int
   valoarePrima Int
 
-  angajat Angajat[]
+  angajat     Angajat[]
+  istoricPost IstoricPost[]
+}
+
+model IstoricPost {
+  angajat_id  Int
+  dataInceput DateTime
+  dataFinal   DateTime
+
+  post_id Int
+  post    Post    @relation(fields: [post_id], references: [post_id])
+  angajat Angajat @relation(fields: [angajat_id], references: [angajat_id])
+
+  @@id([angajat_id, dataInceput])
+}
+
+model IstoricOferta {
+  oferta_id   Int
+  dataInceput DateTime
+  dataFinal   DateTime
+
+  raion_id  Int?
+  produs_id Int?
+  oferta    Oferta  @relation(fields: [oferta_id], references: [oferta_id])
+  raion     Raion?  @relation(fields: [raion_id], references: [raion_id])
+  produs    Produs? @relation(fields: [produs_id], references: [produs_id])
+
+  @@id([oferta_id, dataInceput])
 }
