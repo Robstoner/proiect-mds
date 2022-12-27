@@ -27,7 +27,7 @@ create table angajat
     id int auto_increment primary key,
     nume varchar(20) not null,
     prenume varchar(20) not null,
-    data_angajarii date not null
+    data_angajarii date not null default current_timestamp
 )
 engine = InnoDB;
 
