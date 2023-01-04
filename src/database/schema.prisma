@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,107 +7,104 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Franciza {
-  franciza_id   Int    @id @unique @default(autoincrement())
-  numeDetinator String
-  tara          String
-  nrAngajati    Int
-
-  magazin Magazin[]
+model angajat {
+  id             Int        @id @default(autoincrement())
+  nume           String     @db.VarChar(20)
+  prenume        String     @db.VarChar(20)
+  data_angajarii DateTime   @default(now()) @db.Date
+  contract       contract[]
 }
 
-model Magazin {
-  magazin_id      Int      @id @unique @default(autoincrement())
-  locatie         String
-  program         String
-  dataDeschiderii DateTime
+model contract {
+  dataInceput DateTime @db.Date
+  dataFinal   DateTime @db.Date
+  idAngajat   Int
+  idPost      Int
+  idMagazin   Int
+  angajat     angajat  @relation(fields: [idAngajat], references: [id], onDelete: Cascade, map: "contract_ibfk_1")
+  post        post     @relation(fields: [idPost], references: [id], onDelete: Cascade, map: "contract_ibfk_2")
+  magazin     magazin  @relation(fields: [idMagazin], references: [id], onDelete: Cascade, map: "contract_ibfk_3")
 
-  franciza_id Int
-  franciza    Franciza  @relation(fields: [franciza_id], references: [franciza_id])
-  angajat     Angajat[]
-  raion       Raion[]
+  @@id([idAngajat, dataInceput])
+  @@index([idAngajat, dataInceput], map: "id")
+  @@index([idMagazin], map: "idMagazin")
+  @@index([idPost], map: "idPost")
 }
 
-model Produs {
-  produs_id Int    @id @unique @default(autoincrement())
-  nume      String
-  pret      Int
-
-  oferta_id     Int?
-  raion_id      Int
-  oferta        Oferta?         @relation(fields: [oferta_id], references: [oferta_id])
-  raion         Raion           @relation(fields: [raion_id], references: [raion_id])
-  istoricOferta IstoricOferta[]
+model franciza {
+  id            Int       @id @default(autoincrement())
+  locatie       String    @db.VarChar(100)
+  numeDetinator String    @db.VarChar(30)
+  magazin       magazin[]
 }
 
-model Oferta {
-  oferta_id       Int    @id @unique @default(autoincrement())
-  nume            String
-  procentajScazut Int
-  durata          String
+model magazin {
+  id              Int        @id @default(autoincrement())
+  adresa          String     @db.VarChar(100)
+  programStart    String     @db.VarChar(10)
+  programFinal    String     @db.VarChar(10)
+  dataDeschiderii DateTime   @default(now()) @db.Date
+  idFranciza      Int
+  franciza        franciza   @relation(fields: [idFranciza], references: [id], onDelete: Cascade, map: "magazin_ibfk_1")
+  contract        contract[]
+  raion           raion[]
 
-  produs        Produs[]
-  raion         Raion[]
-  istoricOferta IstoricOferta[]
+  @@index([idFranciza], map: "idFranciza")
 }
 
-model Raion {
-  raion_id Int    @id @unique @default(autoincrement())
-  nume     String
-
-  magazin_id    Int
-  oferta_id     Int?
-  magazin       Magazin         @relation(fields: [magazin_id], references: [magazin_id])
-  oferta        Oferta?         @relation(fields: [oferta_id], references: [oferta_id])
-  produse       Produs[]
-  istoricOferta IstoricOferta[]
+model oferta {
+  id                Int             @id @default(autoincrement())
+  nume              String          @db.VarChar(45)
+  dataInceput       DateTime        @db.Date
+  dataFinal         DateTime        @db.Date
+  procentajReducere Float           @db.Float
+  produs_oferta     produs_oferta[]
 }
 
-model Angajat {
-  angajat_id    Int      @id @unique @default(autoincrement())
-  nume          String
-  prenume       String
-  dataAngajarii DateTime
-  eligibilPrima Boolean
-
-  post_id     Int
-  magazin     Magazin[]
-  post        Post          @relation(fields: [post_id], references: [post_id])
-  istoricPost IstoricPost[]
+model post {
+  id           Int        @id @default(autoincrement())
+  titlu        String     @db.VarChar(20)
+  salariu      Float      @db.Float
+  programStart String     @db.VarChar(10)
+  programFinal String     @db.VarChar(10)
+  contract     contract[]
 }
 
-model Post {
-  post_id      Int    @id @unique @default(autoincrement())
-  nume         String
-  salariuBrut  Int
-  valoarePrima Int
-
-  angajat     Angajat[]
-  istoricPost IstoricPost[]
+model produs {
+  id            Int             @id @default(autoincrement())
+  nume          String          @db.VarChar(45)
+  pret          Float           @db.Float
+  produs_oferta produs_oferta[]
+  produs_raion  produs_raion[]
 }
 
-model IstoricPost {
-  angajat_id  Int
-  dataInceput DateTime
-  dataFinal   DateTime
+model produs_oferta {
+  idProdus Int
+  idOferta Int
+  produs   produs @relation(fields: [idProdus], references: [id], onDelete: Cascade, map: "produs_oferta_ibfk_1")
+  oferta   oferta @relation(fields: [idOferta], references: [id], onDelete: Cascade, map: "produs_oferta_ibfk_2")
 
-  post_id Int
-  post    Post    @relation(fields: [post_id], references: [post_id])
-  angajat Angajat @relation(fields: [angajat_id], references: [angajat_id])
-
-  @@id([angajat_id, dataInceput])
+  @@id([idProdus, idOferta])
+  @@index([idOferta], map: "idOferta")
 }
 
-model IstoricOferta {
-  oferta_id   Int
-  dataInceput DateTime
-  dataFinal   DateTime
+model produs_raion {
+  idProdus Int
+  idRaion  Int
+  produs   produs @relation(fields: [idProdus], references: [id], onDelete: Cascade, map: "produs_raion_ibfk_1")
+  raion    raion  @relation(fields: [idRaion], references: [id], onDelete: Cascade, map: "produs_raion_ibfk_2")
 
-  raion_id  Int?
-  produs_id Int?
-  oferta    Oferta  @relation(fields: [oferta_id], references: [oferta_id])
-  raion     Raion?  @relation(fields: [raion_id], references: [raion_id])
-  produs    Produs? @relation(fields: [produs_id], references: [produs_id])
+  @@id([idProdus, idRaion])
+  @@index([idRaion], map: "idRaion")
+}
 
-  @@id([oferta_id, dataInceput])
+model raion {
+  id           Int            @id @default(autoincrement())
+  nume         String         @db.VarChar(20)
+  tipRaion     String         @db.VarChar(20)
+  idMagazin    Int
+  magazin      magazin        @relation(fields: [idMagazin], references: [id], onDelete: Cascade, map: "raion_ibfk_1")
+  produs_raion produs_raion[]
+
+  @@index([idMagazin], map: "idMagazin")
 }
