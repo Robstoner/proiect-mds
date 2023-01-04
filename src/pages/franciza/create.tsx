@@ -15,7 +15,7 @@ export default function FrancizaCreate() {
 
     function submitFranciza(event) {
         event.preventDefault();
-        console.log('da')
+        
 
         fetch(`/api/franciza/`, {
             method: "POST",
@@ -25,7 +25,7 @@ export default function FrancizaCreate() {
             body: JSON.stringify(fields),
         }).then(async res => {
             const data = await res.json();
-            console.log('da')
+            
             if (!res.ok)
                 return Promise.reject(data);
 
@@ -44,7 +44,7 @@ export default function FrancizaCreate() {
             <Container>
                 <Form>
                     <Form.Control name="numeDetinator" onChange={changeFormFields} type="text" placeholder="Introduceti numele detinatorului" /><br />
-                    <Form.Control name="tara" onChange={changeFormFields} type="text" placeholder="Introduceti tara in care opereaza franciza" /><br />
+                    <Form.Control name="locatie" onChange={changeFormFields} type="text" placeholder="Introduceti tara in care opereaza franciza" /><br />
                     <Button variant="primary" type="submit" onClick={submitFranciza}>Submit</Button>
                 </Form>
             </Container>
