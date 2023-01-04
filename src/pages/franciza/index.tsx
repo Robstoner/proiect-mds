@@ -1,9 +1,10 @@
 import WebsiteLayout from "@layouts/WebsiteLayout";
 import { AgGridReact } from "ag-grid-react";
 import { useState, useEffect, useRef } from "react";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine-dark.css';
+import  Router from "next/router";
 
 export default function FrancizaView() {
 
@@ -45,6 +46,9 @@ export default function FrancizaView() {
         <WebsiteLayout>
             <Container>
                 <h1>View Franciza</h1>
+                <Button variant="primary" onClick={() => {
+                    Router.push("/franciza/create");
+                }}>Creeaza o franciza</Button>
 
                 <div
                     className="ag-theme-alpine-dark"

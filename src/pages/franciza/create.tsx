@@ -1,4 +1,4 @@
-import Router, { useRouter } from "next/router";
+import Router from "next/router";
 import { Alert, Button, Col, Container, Form, InputGroup, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { useEffect, useState, useRef } from "react";
 import WebsiteLayout from "@layouts/WebsiteLayout";
@@ -29,7 +29,7 @@ export default function FrancizaCreate() {
             if (!res.ok)
                 return Promise.reject(data);
 
-            Router.push("/");
+            Router.push("/franciza");
             setError(null);
 
             return;
