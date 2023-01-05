@@ -106,7 +106,7 @@ create table produs_raion
 )
 engine = InnoDB;
 
-create table produs_oferta
+create table istoric_oferte
 (
     idProdus int not null,
     idOferta int not null,

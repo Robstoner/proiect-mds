@@ -53,12 +53,12 @@ model magazin {
 }
 
 model oferta {
-  id                Int             @id @default(autoincrement())
-  nume              String          @db.VarChar(45)
-  dataInceput       DateTime        @db.Date
-  dataFinal         DateTime        @db.Date
-  procentajReducere Float           @db.Float
-  produs_oferta     produs_oferta[]
+  id                Int              @id @default(autoincrement())
+  nume              String           @db.VarChar(45)
+  dataInceput       DateTime         @db.Date
+  dataFinal         DateTime         @db.Date
+  procentajReducere Float            @db.Float
+  istoric_oferte    istoric_oferte[]
 }
 
 model post {
@@ -71,21 +71,11 @@ model post {
 }
 
 model produs {
-  id            Int             @id @default(autoincrement())
-  nume          String          @db.VarChar(45)
-  pret          Float           @db.Float
-  produs_oferta produs_oferta[]
-  produs_raion  produs_raion[]
-}
-
-model produs_oferta {
-  idProdus Int
-  idOferta Int
-  produs   produs @relation(fields: [idProdus], references: [id], onDelete: Cascade, map: "produs_oferta_ibfk_1")
-  oferta   oferta @relation(fields: [idOferta], references: [id], onDelete: Cascade, map: "produs_oferta_ibfk_2")
-
-  @@id([idProdus, idOferta])
-  @@index([idOferta], map: "idOferta")
+  id             Int              @id @default(autoincrement())
+  nume           String           @db.VarChar(45)
+  pret           Float            @db.Float
+  istoric_oferte istoric_oferte[]
+  produs_raion   produs_raion[]
 }
 
 model produs_raion {
@@ -107,4 +97,14 @@ model raion {
   produs_raion produs_raion[]
 
   @@index([idMagazin], map: "idMagazin")
+}
+
+model istoric_oferte {
+  idProdus Int
+  idOferta Int
+  produs   produs @relation(fields: [idProdus], references: [id], onDelete: Cascade, map: "istoric_oferte_ibfk_1")
+  oferta   oferta @relation(fields: [idOferta], references: [id], onDelete: Cascade, map: "istoric_oferte_ibfk_2")
+
+  @@id([idProdus, idOferta])
+  @@index([idOferta], map: "idOferta")
 }
