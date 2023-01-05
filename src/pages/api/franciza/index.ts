@@ -6,14 +6,14 @@ export default async function main(req: NextApiRequest, res: NextApiResponse) {
     const prisma = new PrismaClient();
 
     if (req.method === "GET") {
-        const franciza = await prisma.$queryRaw`SELECT * FROM franciza;`
+        const francize = await prisma.$queryRaw`SELECT * FROM franciza;`
 
-        if (!franciza) {
+        if (!francize) {
             res.status(500).json({ message: "Internal server error." });
             return;
         }
 
-        res.status(200).json(franciza);
+        res.status(200).json(francize);
         return;
     }
 

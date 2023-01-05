@@ -4,20 +4,15 @@ import { useState, useEffect, useRef } from "react";
 import { Button, Container } from "react-bootstrap";
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine-dark.css';
-import  Router from "next/router";
+import Router from "next/router";
 
 export default function FrancizaView() {
 
     const [columnDefs] = useState([
         { headerName: "Nume detinator", field: "numeDetinator", sortable: true, filter: true },
         { headerName: "Locatie", field: "locatie", sortable: true, filter: true },
-        { headerName: "Actiuni", field: "actiuni", sortable: false, filter: false, cellRenderer: "actiuniRenderer" }
+        { headerName: "Actiuni", field: "actiuni", sortable: false, filter: false, cellRenderer: actionCellRenderer }
     ]);
-
-    const [defaultColDef] = useState({
-        sizeColumnsToFit: true,
-
-    });
 
     const gridRef = useRef();
 
@@ -40,7 +35,29 @@ export default function FrancizaView() {
         e.api.sizeColumnsToFit();
     }
 
-    
+    function deleteFranciza(e, id) {
+        e.preventDefault();
+
+        fetch(`/api/franciza/${id}`, {
+            method: "DELETE"
+        }).then(async res => {
+            const data = await res.json();
+
+            if (!res.ok)
+                return Promise.reject(data);
+
+            
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
+    function actionCellRenderer(params) {
+        return (<>
+            <Button className="btn btn-primary" onClick={() => Router.push(`/franciza/${params.data.id}`)}>Edit</Button>
+            <Button className="btn btn-danger" onClick={e => deleteFranciza(e, params.data.id)}>Delete</Button>
+        </>);
+    }
 
     return (
         <WebsiteLayout>
@@ -55,11 +72,9 @@ export default function FrancizaView() {
                     style={{ height: '600px' }}
                 >
                     <AgGridReact
-                        defaultColDef={defaultColDef}
-
                         ref={gridRef}
                         onGridReady={onGridReady}
-
+                        animateRows={true}
                         columnDefs={columnDefs}
                         rowData={rowData}
                     ></AgGridReact>
