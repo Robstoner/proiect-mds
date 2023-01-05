@@ -29,7 +29,7 @@ export default async function main(req: NextApiRequest, res: NextApiResponse) {
             return;
         }
 
-        res.status(200).json({ message: "Succesfully created campaign." });
+        res.status(200).json({ message: "Succesfully created franciza." });
         return;
     }
 

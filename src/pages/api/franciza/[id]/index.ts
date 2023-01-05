@@ -30,7 +30,7 @@ export default async function main(req: NextApiRequest, res: NextApiResponse) {
             return;
         }
 
-        res.status(200).json({ message: "Succesfully updated campaign." });
+        res.status(200).json({ message: "Succesfully updated franciza." });
         return;
     }
 
@@ -44,7 +44,7 @@ export default async function main(req: NextApiRequest, res: NextApiResponse) {
             return;
         }
 
-        res.status(200).json({ message: "Succesfully deleted campaign." });
+        res.status(200).json({ message: "Succesfully deleted franciza." });
         return;
     }
 

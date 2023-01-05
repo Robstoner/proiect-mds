@@ -12,12 +12,15 @@ import Preloader from "@layouts/Preloader";
 export default function FrancizaView() {
 
     const [columnDefs] = useState([
-        { headerName: "Nume detinator", field: "numeDetinator", sortable: true, filter: true },
-        { headerName: "Locatie", field: "locatie", sortable: true, filter: true },
+        { headerName: "Adresa", field: "adresa", sortable: true, filter: true },
+        { headerName: "Inceputul programului", field: "programStart", sortable: true, filter: true },
+        { headerName: "Sfarsitul programului", field: "programFinal", sortable: true, filter: true },
+        { headerName: "Data deschiderii", field: "dataDeschiderii", sortable: true, filter: true },
+        { headerName: "Franciza", field: "idFranciza", sortable: true, filter: true },
         { headerName: "Actiuni", field: "actiuni", sortable: false, filter: false, cellRenderer: actionCellRenderer }
     ]);
 
-    const { data, error, isLoading, mutate} = useSWR('/api/franciza', fetcher)
+    const { data, error, isLoading, mutate } = useSWR('/api/magazin', fetcher)
 
     const gridRef = useRef();
 
@@ -33,10 +36,10 @@ export default function FrancizaView() {
         e.api.sizeColumnsToFit();
     }
 
-    function deleteFranciza(e, id) {
+    function deleteMagazin(e, id) {
         e.preventDefault();
 
-        fetch(`/api/franciza/${id}`, {
+        fetch(`/api/magazin/${id}`, {
             method: "DELETE"
         }).then(async res => {
             const data = await res.json();
@@ -52,20 +55,20 @@ export default function FrancizaView() {
 
     function actionCellRenderer(params) {
         return (<>
-            <Button className="btn btn-primary" onClick={() => Router.push(`/franciza/${params.data.id}`)}>Edit</Button>
-            <Button className="btn btn-danger" onClick={e => deleteFranciza(e, params.data.id)}>Delete</Button>
+            <Button className="btn btn-primary" onClick={() => Router.push(`/magazin/${params.data.id}`)}>Edit</Button>
+            <Button className="btn btn-danger" onClick={e => deleteMagazin(e, params.data.id)}>Delete</Button>
         </>);
     }
 
-    if (isLoading) return <Preloader/>
+    if (isLoading) return <Preloader />
 
     return (
         <WebsiteLayout>
             <Container>
-                <h1>View Franciza</h1>
+                <h1>View Magazin</h1>
                 <Button variant="primary" onClick={() => {
-                    Router.push("/franciza/create");
-                }}>Creeaza o franciza</Button>
+                    Router.push("/magazin/create");
+                }}>Creeaza un magazin</Button>
 
                 <div
                     className="ag-theme-alpine-dark"

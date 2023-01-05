@@ -16,7 +16,6 @@ export default function FrancizaCreate() {
     function submitFranciza(event) {
         event.preventDefault();
         
-
         fetch(`/api/franciza/`, {
             method: "POST",
             headers: {
