@@ -22,7 +22,7 @@ export default async function main(req: NextApiRequest, res: NextApiResponse) {
 
     if (req.method === "PUT") {
         const magazinInfo = req.body;
-console.log(magazinInfo);
+
         const magazin = await prisma.$queryRaw`UPDATE magazin SET adresa=${magazinInfo.adresa}, programStart=${magazinInfo.programStart}, programFinal=${magazinInfo.programFinal},
                                                                     dataDeschiderii=${magazinInfo.dataDeschiderii}, idFranciza=${magazinInfo.idFranciza} WHERE id=${id};`
 

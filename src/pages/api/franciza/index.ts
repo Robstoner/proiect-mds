@@ -19,7 +19,6 @@ export default async function main(req: NextApiRequest, res: NextApiResponse) {
 
     if (req.method === "POST") {
         const francizaInfo = req.body;
-        console.log(francizaInfo);
 
         const franciza = await prisma.$queryRaw`INSERT INTO franciza (locatie, numeDetinator)
                                                 VALUES (${francizaInfo.locatie}, ${francizaInfo.numeDetinator});`

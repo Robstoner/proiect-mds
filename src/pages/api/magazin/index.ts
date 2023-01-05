@@ -19,7 +19,6 @@ export default async function main(req: NextApiRequest, res: NextApiResponse) {
 
     if (req.method === "POST") {
         const magazinInfo = req.body;
-        console.log(magazinInfo);
 
         const magazin = await prisma.$queryRaw`INSERT INTO magazin (adresa, programStart, programFinal, dataDeschiderii, idFranciza)
                                                 VALUES (${magazinInfo.adresa}, ${magazinInfo.programStart}, ${magazinInfo.programFinal}, ${magazinInfo.dataDeschiderii}, ${magazinInfo.idFranciza});`
