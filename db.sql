@@ -27,7 +27,7 @@ create table angajat
     id int auto_increment primary key,
     nume varchar(20) not null,
     prenume varchar(20) not null,
-    data_angajarii date not null default current_timestamp
+    dataAngajarii date not null default current_timestamp
 )
 engine = InnoDB;
 
@@ -35,7 +35,7 @@ create table post
 (
     id int auto_increment primary key,
     titlu varchar(20) not null,
-    salariu float not null,
+    salariu float not null check (salariu > 0),
     programStart varchar(10) not null,
     programFinal varchar(10) not null
 )
@@ -80,7 +80,7 @@ create table oferta
     nume varchar(45) not null,
     dataInceput date not null,
     dataFinal date not null,
-    procentajReducere float not null
+    procentajReducere float not null check (procentajReducere > 0 and procentajReducere < 1)
 )
 engine = InnoDB;
 
@@ -88,7 +88,7 @@ create table produs
 (
     id int auto_increment primary key,
     nume varchar(45) not null,
-    pret float not null
+    pret float not null check (pret > 0)
 )
 engine = InnoDB;
 
@@ -119,3 +119,10 @@ create table istoric_oferte
     on update cascade
 )
 engine = InnoDB;
+
+
+alter table oferta
+    add constraint oferta_valid_data check (dataInceput < dataFinal);
+
+alter table contract
+    add constraint contract_valid_data check (dataInceput < dataFinal);
