@@ -81,6 +81,7 @@ create table oferta
     dataInceput date not null,
     dataFinal date not null,
     procentajReducere float not null check (procentajReducere > 0 and procentajReducere < 1)
+    constraint oferta_chk check (dataInceput < dataFinal)
 )
 engine = InnoDB;
 
