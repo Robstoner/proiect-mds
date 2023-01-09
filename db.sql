@@ -1,4 +1,3 @@
-------------------------------------------------------------
 
 create table franciza
 (
@@ -58,7 +57,8 @@ create table contract
     on delete cascade
     on update cascade,
     index id (idAngajat, dataInceput), 
-    primary key (idAngajat, dataInceput) -- cheie compusa
+    primary key (idAngajat, dataInceput), -- cheie compusa
+    constraint contract_data_chk check (dataInceput < dataFinal)
 )
 engine = InnoDB;
 
@@ -80,8 +80,8 @@ create table oferta
     nume varchar(45) not null,
     dataInceput date not null,
     dataFinal date not null,
-    procentajReducere float not null check (procentajReducere > 0 and procentajReducere < 1)
-    constraint oferta_chk check (dataInceput < dataFinal)
+    procentajReducere float not null check (procentajReducere > 0 and procentajReducere < 1),
+    constraint oferta_data_chk check (dataInceput < dataFinal)
 )
 engine = InnoDB;
 
@@ -120,10 +120,3 @@ create table istoric_oferte
     on update cascade
 )
 engine = InnoDB;
-
-
-alter table oferta
-    add constraint oferta_valid_data check (dataInceput < dataFinal);
-
-alter table contract
-    add constraint contract_valid_data check (dataInceput < dataFinal);
