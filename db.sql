@@ -14,10 +14,10 @@ create table magazin
     programStart varchar(10) not null,
     programFinal varchar(10) not null,
     dataDeschiderii date not null default current_timestamp,
-    idFranciza int not null,
+    idFranciza int,
     foreign key (idFranciza) references franciza(id)
-    on delete cascade
-    on update cascade
+    on delete set null
+    on update set null
 )
 engine = InnoDB;
 
@@ -45,17 +45,17 @@ create table contract
     dataInceput date not null,
     dataFinal date not null,
     idAngajat int not null,
-    idPost int not null,
-    idMagazin int not null,
+    idPost int,
+    idMagazin int,
     foreign key (idAngajat) references angajat(id)
     on delete cascade
     on update cascade,
     foreign key (idPost) references post(id)
-    on delete cascade
-    on update cascade,
+    on delete set null
+    on update set null,
     foreign key (idMagazin) references magazin(id)
-    on delete cascade
-    on update cascade,
+    on delete set null
+    on update set null,
     index id (idAngajat, dataInceput), 
     primary key (idAngajat, dataInceput), -- cheie compusa
     constraint contract_data_chk check (dataInceput < dataFinal)

@@ -19,11 +19,11 @@ model contract {
   dataInceput DateTime @db.Date
   dataFinal   DateTime @db.Date
   idAngajat   Int
-  idPost      Int
-  idMagazin   Int
+  idPost      Int?
+  idMagazin   Int?
   angajat     angajat  @relation(fields: [idAngajat], references: [id], onDelete: Cascade, map: "contract_ibfk_1")
-  post        post     @relation(fields: [idPost], references: [id], onDelete: Cascade, map: "contract_ibfk_2")
-  magazin     magazin  @relation(fields: [idMagazin], references: [id], onDelete: Cascade, map: "contract_ibfk_3")
+  post        post?    @relation(fields: [idPost], references: [id], onUpdate: SetNull, map: "contract_ibfk_2")
+  magazin     magazin? @relation(fields: [idMagazin], references: [id], onUpdate: SetNull, map: "contract_ibfk_3")
 
   @@id([idAngajat, dataInceput])
   @@index([idAngajat, dataInceput], map: "id")
@@ -44,8 +44,8 @@ model magazin {
   programStart    String     @db.VarChar(10)
   programFinal    String     @db.VarChar(10)
   dataDeschiderii DateTime   @default(now()) @db.Date
-  idFranciza      Int
-  franciza        franciza   @relation(fields: [idFranciza], references: [id], onDelete: Cascade, map: "magazin_ibfk_1")
+  idFranciza      Int?
+  franciza        franciza?  @relation(fields: [idFranciza], references: [id], onUpdate: SetNull, map: "magazin_ibfk_1")
   contract        contract[]
   raion           raion[]
 
