@@ -1,7 +1,7 @@
 import WebsiteLayout from "@layouts/WebsiteLayout";
 import { AgGridReact } from "ag-grid-react";
 import { useState, useEffect, useRef } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button, Container, Modal } from "react-bootstrap";
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine-dark.css';
 import Router from "next/router";
@@ -36,11 +36,14 @@ export default function ContractView() {
         e.api.sizeColumnsToFit();
     }
 
-    function deleteContract(e, id) {
+    function deleteContract(e, idAngajat, dataInceput) {
         e.preventDefault();
 
+        const id = idAngajat + "_" + dataInceput.split('T')[0];
+
         fetch(`/api/contract/${id}`, {
-            method: "DELETE"
+            method: "DELETE",
+
         }).then(async res => {
             const data = await res.json();
 
@@ -53,10 +56,18 @@ export default function ContractView() {
         });
     }
 
+    const [show, setShow] = useState(false);
+    const [id, setId] = useState(0);
+    const [dataInceput, setDataInceput] = useState("");
+
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     function actionCellRenderer(params) {
         return (<>
             <Button className="btn btn-primary" onClick={() => Router.push(`/contract/${params.data.idAngajat + "_" + params.data.dataInceput.split('T')[0]}`)}>Edit</Button>
-            <Button className="btn btn-danger" onClick={e => deleteContract(e, params.data.id)}>Delete</Button>
+            <Button className="btn btn-danger" onClick={() => { setId(params.data.idAngajat); setDataInceput(params.data.dataInceput); handleShow(); }}>Delete</Button>
         </>);
     }
 
@@ -82,6 +93,22 @@ export default function ContractView() {
                         rowData={rowData}
                     ></AgGridReact>
                 </div>
+
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Sterge contractul {id}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Sunteti sigur ca doriti sa stergeti contractul angajatului {id} cu data de inceput {dataInceput}?</Modal.Body>
+                    <Modal.Footer>
+
+                        <Button variant="secondary" onClick={handleClose}>
+                            Inchide
+                        </Button>
+                        <Button variant="danger" onClick={(e) => { deleteContract(e, id, dataInceput); handleClose(); }}>
+                            Sterge
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
 
             </Container>
         </WebsiteLayout>

@@ -40,7 +40,7 @@ export default async function main(req: NextApiRequest, res: NextApiResponse) {
 
     if (req.method === "DELETE") {
 
-        const contract = await prisma.$queryRaw`DELETE FROM contract WHERE id=${id};`
+        const contract = await prisma.$queryRaw`DELETE FROM contract WHERE idAngajat=${idAngajat} and dataInceput=${dataInceput};`
 
         if (!contract) {
             res.status(500).json({ message: "Internal server error." });

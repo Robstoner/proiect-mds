@@ -1,7 +1,7 @@
 import WebsiteLayout from "@layouts/WebsiteLayout";
 import { AgGridReact } from "ag-grid-react";
 import { useState, useEffect, useRef } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button, Container, Modal } from "react-bootstrap";
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine-dark.css';
 import Router from "next/router";
@@ -50,10 +50,16 @@ export default function ProdusView() {
         });
     }
 
+    const [show, setShow] = useState(false);
+    const [id, setId] = useState(0);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     function actionCellRenderer(params) {
         return (<>
             <Button className="btn btn-primary" onClick={() => Router.push(`/produs/${params.data.id}`)}>Edit</Button>
-            <Button className="btn btn-danger" onClick={e => deleteProdus(e, params.data.id)}>Delete</Button>
+            <Button className="btn btn-danger" onClick={() => { setId(params.data.id); handleShow(); }}>Delete</Button>
         </>);
     }
 
@@ -79,6 +85,23 @@ export default function ProdusView() {
                         rowData={rowData}
                     ></AgGridReact>
                 </div>
+
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Sterge produsul {id}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Sunteti sigur ca doriti sa stergeti produsul cu id-ul {id}?<br/>
+                    Acest lucru va sterge toate asocierile dintre produsul acesta cu raioane si oferte.</Modal.Body>
+                    <Modal.Footer>
+
+                        <Button variant="secondary" onClick={handleClose}>
+                            Inchide
+                        </Button>
+                        <Button variant="danger" onClick={(e) => { deleteProdus(e, id); handleClose(); }}>
+                            Sterge
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
 
             </Container>
         </WebsiteLayout>
