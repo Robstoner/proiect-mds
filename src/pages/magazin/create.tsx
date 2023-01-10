@@ -8,7 +8,7 @@ import Preloader from "@layouts/Preloader";
 
 export default function FrancizaCreate() {
 
-    const [error, setError] = useState();
+    const [error, setError] = useState(false);
 
     const [fields, setFields] = useState({});
 
@@ -34,11 +34,11 @@ export default function FrancizaCreate() {
                 return Promise.reject(data);
 
             Router.push("/magazin");
-            setError(null);
+            setError(true);
 
             return;
         }).catch(err => {
-            setError(err.message);
+            setError(false);
         }
         );
     }
@@ -48,7 +48,7 @@ export default function FrancizaCreate() {
     return (
         <WebsiteLayout>
             <Container>
-                <Form>
+                <Form validated={error}>
                     <Form.Control name="adresa" onChange={changeFormFields} type="text" placeholder="Introduceti adresa"  /><br />
                     <Form.Control name="programStart" onChange={changeFormFields} type="time" placeholder="Introduceti ora la care incepe programul magazinului" /><br />
                     <Form.Control name="programFinal" onChange={changeFormFields} type="time" placeholder="Introduceti ora la care se termina programul magazinului" /><br />
