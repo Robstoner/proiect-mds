@@ -9,18 +9,17 @@ import fetcher from "src/lib/fetcher";
 import useSWR from 'swr';
 import Preloader from "@layouts/Preloader";
 
-export default function MagazinView() {
+export default function PostView() {
 
     const [columnDefs] = useState([
-        { headerName: "Adresa", field: "adresa", sortable: true, filter: true },
+        { headerName: "Titlul postului", field: "titlu", sortable: true, filter: true },
+        { headerName: "Salariul", field: "salariu", sortable: true, filter: true },
         { headerName: "Inceputul programului", field: "programStart", sortable: true, filter: true },
         { headerName: "Sfarsitul programului", field: "programFinal", sortable: true, filter: true },
-        { headerName: "Data deschiderii", field: "dataDeschiderii", valueFormatter: params => params.data.dataDeschiderii.split('T')[0], sortable: true, filter: true },
-        { headerName: "Franciza", field: "idFranciza", sortable: true, filter: true },
         { headerName: "Actiuni", field: "actiuni", sortable: false, filter: false, cellRenderer: actionCellRenderer }
     ]);
 
-    const { data, error, isLoading, mutate } = useSWR('/api/magazin', fetcher)
+    const { data, error, isLoading, mutate } = useSWR('/api/post', fetcher)
 
     const gridRef = useRef();
 
@@ -36,10 +35,10 @@ export default function MagazinView() {
         e.api.sizeColumnsToFit();
     }
 
-    function deleteMagazin(e, id) {
+    function deletePost(e, id) {
         e.preventDefault();
 
-        fetch(`/api/magazin/${id}`, {
+        fetch(`/api/post/${id}`, {
             method: "DELETE"
         }).then(async res => {
             const data = await res.json();
@@ -55,8 +54,8 @@ export default function MagazinView() {
 
     function actionCellRenderer(params) {
         return (<>
-            <Button className="btn btn-primary" onClick={() => Router.push(`/magazin/${params.data.id}`)}>Edit</Button>
-            <Button className="btn btn-danger" onClick={e => deleteMagazin(e, params.data.id)}>Delete</Button>
+            <Button className="btn btn-primary" onClick={() => Router.push(`/post/${params.data.id}`)}>Edit</Button>
+            <Button className="btn btn-danger" onClick={e => deletePost(e, params.data.id)}>Delete</Button>
         </>);
     }
 
@@ -65,10 +64,10 @@ export default function MagazinView() {
     return (
         <WebsiteLayout>
             <Container>
-                <h1>View Magazin</h1>
+                <h1>View Post</h1>
                 <Button variant="primary" onClick={() => {
-                    Router.push("/magazin/create");
-                }}>Creeaza un magazin</Button>
+                    Router.push("/post/create");
+                }}>Creeaza un Post</Button>
 
                 <div
                     className="ag-theme-alpine-dark"

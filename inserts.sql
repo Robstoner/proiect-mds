@@ -8,11 +8,11 @@ VALUES
     ('Romania, Iasi', 'Brown Michael');
 
 INSERT INTO `magazin` (`adresa`, `programStart`, `programFinal`, `dataDeschiderii`, `idFranciza`) 
-VALUES ('Str. Drumul Taberei, Nr. 53', '10', '22', current_timestamp(), '1');
+VALUES ('Str. Drumul Taberei, Nr. 53', '10:00', '22:00', current_timestamp(), '1');
 
 INSERT INTO `magazin` (`adresa`, `programStart`, `programFinal`, `dataDeschiderii`, `idFranciza`)
-VALUES ('Str. Mihai Viteazul, Nr. 21', '09', '20', current_timestamp(), '1'),
-       ('Str. 1 Mai, Nr. 2', '08', '18', current_timestamp(), '2');
+VALUES ('Str. Mihai Viteazul, Nr. 21', '09:00', '20:00', current_timestamp(), '1'),
+       ('Str. 1 Mai, Nr. 2', '08:00', '18:00', current_timestamp(), '2');
 
 INSERT INTO `angajat` (`nume`, `prenume`, `dataAngajarii`) 
 VALUES ('Schmidt', 'Helmuth', current_timestamp());
@@ -23,12 +23,12 @@ VALUES ('Popescu', 'Alex', current_timestamp()),
        ('Mihai', 'Iulian', current_timestamp());
 
 INSERT INTO `post` (`titlu`, `salariu`, `programStart`, `programFinal`) 
-VALUES ('Manager', '10000', '9', '16');
+VALUES ('Manager', '10000', '9:00', '16:00');
 
 INSERT INTO `post` (`titlu`, `salariu`, `programStart`, `programFinal`)
-VALUES ('Casier', '5000', '10', '18'),
-       ('Lucrator comercial', '6500', '08', '16'),
-       ('Lucrator comercial', '6500', '14', '20');
+VALUES ('Casier', '5000', '10:00', '18:00'),
+       ('Lucrator comercial', '6500', '08:00', '16:00'),
+       ('Lucrator comercial', '6500', '14:00', '20:00');
 
 INSERT INTO `contract` (`dataInceput`, `dataFinal`, `idAngajat`, `idPost`, `idMagazin`) 
 VALUES ('2022-12-27', '2024-12-01', '1', '1', '1');

@@ -6,7 +6,7 @@ import fetcher from "src/lib/fetcher";
 import useSWR from 'swr';
 import Preloader from "@layouts/Preloader";
 
-export default function FrancizaCreate() {
+export default function MagazinCreate() {
 
     const [error, setError] = useState(false);
 
@@ -18,7 +18,7 @@ export default function FrancizaCreate() {
 
     const { data: francize, error: francizeError, isLoading } = useSWR(`/api/franciza/`, fetcher);
 
-    function submitFranciza(event) {
+    function submitMagazin(event) {
         event.preventDefault();
         
         fetch(`/api/magazin/`, {
@@ -59,7 +59,7 @@ export default function FrancizaCreate() {
                             <option key={franciza.id} value={franciza.id}>{franciza.locatie}</option>
                         ), francizeError)}
                     </Form.Control><br />
-                    <Button variant="primary" type="submit" onClick={submitFranciza}>Submit</Button>
+                    <Button variant="primary" type="submit" onClick={submitMagazin}>Submit</Button>
                 </Form>
             </Container>
         </WebsiteLayout>

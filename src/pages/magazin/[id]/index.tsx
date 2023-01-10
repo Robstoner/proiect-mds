@@ -7,7 +7,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import fetcher from "src/lib/fetcher";
 import useSWR from 'swr';
 
-export default function FrancizaEdit() {
+export default function MagazinEdit() {
     const router = useRouter();
 
     const { id } = router.query;
@@ -24,7 +24,7 @@ export default function FrancizaEdit() {
         setFields((prev) => ({ ...prev, [event.target.name]: event.target.value }))
     }
 
-    function submitFranciza(event) {
+    function submitMagazin(event) {
         event.preventDefault();
 
         fetch(`/api/magazin/${id}`, {
@@ -70,7 +70,7 @@ export default function FrancizaEdit() {
                             <option key={franciza.id} value={franciza.id}>{franciza.numeDetinator}</option>
                         ), francizeError)}
                     </Form.Control><br />
-                    <Button variant="primary" type="submit" onClick={submitFranciza}>Submit</Button>
+                    <Button variant="primary" type="submit" onClick={submitMagazin}>Submit</Button>
                 </Form>
             </Container>
         </WebsiteLayout>
