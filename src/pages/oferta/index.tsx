@@ -73,7 +73,7 @@ export default function OfertaView() {
                 <h1>View Oferta</h1>
                 <Button variant="primary" onClick={() => {
                     Router.push("/oferta/create");
-                }}>Creeaza un Oferta</Button>
+                }}>Creeaza o Oferta</Button>
 
                 <div
                     className="ag-theme-alpine-dark"

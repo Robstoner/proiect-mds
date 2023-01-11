@@ -72,7 +72,12 @@ export default function MagazinView() {
         <WebsiteLayout>
             <Container>
                 <h1>View Magazin</h1>
+
                 <Button variant="primary" onClick={() => {
+                    Router.push("/oferta/create");
+                }}>Creeaza un Magazin</Button>
+
+                <Button variant="secondary" onClick={() => {
                     Router.push("/magazin/group");
                 }}>Arata francizele cu mai mult de 3 magazine</Button>
 

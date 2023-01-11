@@ -32,7 +32,7 @@ export default function WebsiteLayout({ children }) {
                 {children}
                 <Container fluid >
                     <Container className="text-center">
-                        BOTTOM TEXT
+                        <hr />
                     </Container>
                 </Container>
             </SSRProvider>
