@@ -12,7 +12,15 @@ VALUES ('Str. Drumul Taberei, Nr. 53', '10:00', '22:00', current_timestamp(), '1
 
 INSERT INTO `magazin` (`adresa`, `programStart`, `programFinal`, `dataDeschiderii`, `idFranciza`)
 VALUES ('Str. Mihai Viteazul, Nr. 21', '09:00', '20:00', current_timestamp(), '1'),
-       ('Str. 1 Mai, Nr. 2', '08:00', '18:00', current_timestamp(), '2');
+       ('Str. 1 Mai, Nr. 2', '08:00', '18:00', current_timestamp(), '2'),
+       ('Str. Mihai Eminescu, Nr. 3', '08:00', '18:00', current_timestamp(), '1'),
+       ('Str. Ion Creanga, Nr. 4', '08:00', '18:00', current_timestamp(), '1'),
+       ('Str. Vasile Alecsandri, Nr. 5', '08:00', '18:00', current_timestamp(), '2'),
+       ('Str. Cara Anghel, Nr. 4', '08:00', '18:00', current_timestamp(), '2'),
+       ('Soseaua Panduri, Nr. 4', '08:00', '18:00', current_timestamp(), '2'),
+       ('Str. Mihail Sebastian, Nr. 5', '08:00', '18:00', current_timestamp(), '2'),
+       ('Str. Iovita, Nr. 4', '08:00', '18:00', current_timestamp(), '3');
+
 
 INSERT INTO `angajat` (`nume`, `prenume`, `dataAngajarii`) 
 VALUES ('Schmidt', 'Helmuth', current_timestamp());
@@ -83,6 +91,7 @@ INSERT INTO `istoric_oferte` (`idProdus`, `idOferta`)
 VALUES ('3', '1');
 
 INSERT INTO `istoric_oferte` (`idProdus`, `idOferta`)
-VALUES ('4', '3'),
+VALUES ('5', '3'),
+       ('6', '2'),
        ('5', '2'),
-       ('3', '2');
+       ('4', '2');

@@ -60,6 +60,8 @@ export default function ProdusView() {
         return (<>
             <Button className="btn btn-primary" onClick={() => Router.push(`/produs/${params.data.id}`)}>Edit</Button>
             <Button className="btn btn-danger" onClick={() => { setId(params.data.id); handleShow(); }}>Delete</Button>
+            <Button className="btn btn-secondary" onClick={() => Router.push(`/produs/${params.data.id}/oferte`)}>Oferte cu procentaj {'>'} 15</Button>
+
         </>);
     }
 
