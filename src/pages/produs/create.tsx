@@ -2,10 +2,13 @@ import Router from "next/router";
 import { Alert, Button, Col, Container, Form, InputGroup, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { useEffect, useState, useRef } from "react";
 import WebsiteLayout from "@layouts/WebsiteLayout";
+import fetcher from "src/lib/fetcher";
+import useSWR from 'swr';
+import Preloader from "@layouts/Preloader";
 
-export default function FrancizaCreate() {
+export default function ProdusCreate() {
 
-    const [error, setError] = useState();
+    const [error, setError] = useState(false);
 
     const [fields, setFields] = useState({});
 
@@ -13,10 +16,10 @@ export default function FrancizaCreate() {
         setFields((prev) => ({ ...prev, [event.target.name]: event.target.value }))
     }
 
-    function submitFranciza(event) {
+    function submitProdus(event) {
         event.preventDefault();
         
-        fetch(`/api/franciza/`, {
+        fetch(`/api/produs/`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -28,12 +31,12 @@ export default function FrancizaCreate() {
             if (!res.ok)
                 return Promise.reject(data);
 
-            Router.push("/franciza");
-            setError(null);
+            Router.push("/produs");
+            setError(true);
 
             return;
         }).catch(err => {
-            setError(err.message);
+            setError(false);
         }
         );
     }
@@ -41,12 +44,13 @@ export default function FrancizaCreate() {
     return (
         <WebsiteLayout>
             <Container>
-                <Form>
-                    <Form.Label htmlFor="nume">Introduceti numele detinatorului</Form.Label>
-                    <Form.Control name="numeDetinator" onChange={changeFormFields} type="text" placeholder="Introduceti numele detinatorului" /><br />
-                    <Form.Label htmlFor="nume">Introduceti tara in care opereaza franciza</Form.Label>
-                    <Form.Control name="locatie" onChange={changeFormFields} type="text" placeholder="Introduceti tara in care opereaza franciza" /><br />
-                    <Button variant="primary" type="submit" onClick={submitFranciza}>Submit</Button>
+                <Form validated={error}>
+                    <Form.Label htmlFor="nume">Introduceti numele produsului</Form.Label>
+                    <Form.Control name="nume" onChange={changeFormFields} type="text" placeholder="Introduceti numele produsului" /><br />
+                    <Form.Label htmlFor="pret">Introduceti pretul produsului</Form.Label>
+                    <Form.Control name="pret" onChange={changeFormFields} step=".01" type="number" placeholder="Introduceti pretul produsului" /><br />
+
+                    <Button variant="primary" type="submit" onClick={submitProdus}>Submit</Button>
                 </Form>
             </Container>
         </WebsiteLayout>

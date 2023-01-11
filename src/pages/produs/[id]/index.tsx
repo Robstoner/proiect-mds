@@ -59,7 +59,9 @@ export default function ProdusEdit() {
             <Container>
                 <h1>Edit Produs</h1>
                 <Form>
+                    <Form.Label htmlFor="nume">Introduceti numele produsului</Form.Label>
                     <Form.Control name="nume" defaultValue={fields.nume} onChange={changeFormFields} type="text" placeholder="Introduceti numele produsului" /><br />
+                    <Form.Label htmlFor="pret">Introduceti pretul produsului</Form.Label>
                     <Form.Control name="pret" defaultValue={fields.pret} onChange={changeFormFields} step=".01" type="number" placeholder="Introduceti pretul produsului" /><br />
 
                     <Button variant="primary" type="submit" onClick={submitProdus}>Submit</Button>

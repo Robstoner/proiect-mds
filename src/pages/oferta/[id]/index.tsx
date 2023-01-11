@@ -59,9 +59,13 @@ export default function OfertaEdit() {
             <Container>
                 <h1>Edit Oferta</h1>
                 <Form>
+                    <Form.Label htmlFor="nume">Introduceti numele ofertei</Form.Label>
                     <Form.Control name="nume" defaultValue={fields.nume} onChange={changeFormFields} type="text" placeholder="Introduceti numele ofertei" /><br />
+                    <Form.Label htmlFor="dataInceput">Introduceti data la care incepe oferta</Form.Label>
                     <Form.Control name="dataInceput" defaultValue={fields.dataInceput.toString().slice(0, 10)} onChange={changeFormFields} type="date" placeholder="Introduceti data la care incepe oferta" /><br />
+                    <Form.Label htmlFor="dataFinal">Introduceti data la care se termina oferta</Form.Label>
                     <Form.Control name="dataFinal" defaultValue={fields.dataFinal.toString().slice(0, 10)} onChange={changeFormFields} type="date" placeholder="Introduceti data la care se termina oferta" /><br />
+                    <Form.Label htmlFor="procentajReducere">Introduceti procentajul scazut din produs</Form.Label>
                     <Form.Control name="procentajReducere" defaultValue={fields.procentajReducere} onChange={changeFormFields} type="number" placeholder="Introduceti procentajul scazut din produs" /><br />
                     
                     <Button variant="primary" type="submit" onClick={submitOferta}>Submit</Button>

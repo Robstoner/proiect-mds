@@ -61,8 +61,11 @@ export default function RaionEdit() {
             <Container>
                 <h1>Edit Magazin</h1>
                 <Form>
+                    <Form.Label htmlFor="nume">Introduceti numele raionului</Form.Label>
                     <Form.Control name="nume" defaultValue={fields.nume} onChange={changeFormFields} type="text" placeholder="Introduceti numele raionului" /><br />
+                    <Form.Label htmlFor="tipRaion">Introduceti tipul raionului</Form.Label>
                     <Form.Control name="tipRaion" defaultValue={fields.tipRaion} onChange={changeFormFields} type="text" placeholder="Introduceti tipul raionului" /><br />
+                    <Form.Label htmlFor="idMagazin">Introduceti id-ul magazinului la care apartine raionul</Form.Label>
                     <Form.Control as="select" defaultValue={fields.idMagazin} name="idMagazin" onChange={changeFormFields} placeholder="Introduceti id-ul magazinului la care apartine raionul">
                         {magazine.map(magazin => (
                             <option key={magazin.id} value={magazin.id}>{magazin.adresa}</option>

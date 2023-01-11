@@ -59,8 +59,11 @@ export default function AngajatEdit() {
             <Container>
                 <h1>Edit Angajat</h1>
                 <Form>
+                    <Form.Label htmlFor="nume">Introduceti numele angajatului</Form.Label>
                     <Form.Control name="nume" defaultValue={fields.nume} onChange={changeFormFields} type="text" placeholder="Introduceti numele angajatului" /><br />
+                    <Form.Label htmlFor="prenume">Introduceti prenumele angajatului</Form.Label>
                     <Form.Control name="prenume" defaultValue={fields.prenume} onChange={changeFormFields} type="text" placeholder="Introduceti prenumele angajatului" /><br />
+                    <Form.Label htmlFor="dataAngajarii">Introduceti prima data la care a fost angajat</Form.Label>
                     <Form.Control name="dataAngajarii" defaultValue={fields.dataAngajarii.toString().slice(0, 10)} onChange={changeFormFields} readOnly type="date" placeholder="Introduceti prima data la care a fost angajat" /><br />
 
                     <Button variant="primary" type="submit" onClick={submitAngajat}>Submit</Button>

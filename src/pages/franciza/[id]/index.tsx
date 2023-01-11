@@ -59,7 +59,9 @@ export default function FrancizaEdit() {
             <Container>
                 <h1>Edit Franciza {data.numeDetinator}</h1>
                 <Form>
+                    <Form.Label htmlFor="numeDetinator">Introduceti numele detinatorului</Form.Label>
                     <Form.Control name="numeDetinator" defaultValue={fields.numeDetinator} onChange={changeFormFields} type="text" placeholder="Introduceti numele detinatorului" /><br />
+                    <Form.Label htmlFor="nume">Introduceti numele francizei</Form.Label>
                     <Form.Control name="locatie" defaultValue={fields.locatie} onChange={changeFormFields} type="text" placeholder="Introduceti tara in care opereaza franciza" /><br />
                     <Button variant="primary" type="submit" onClick={submitFranciza}>Submit</Button>
                 </Form>

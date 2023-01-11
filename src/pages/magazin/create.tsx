@@ -49,10 +49,15 @@ export default function MagazinCreate() {
         <WebsiteLayout>
             <Container>
                 <Form validated={error}>
+                    <Form.Label htmlFor="nume">Introduceti adresa magazinului</Form.Label>
                     <Form.Control name="adresa" onChange={changeFormFields} type="text" placeholder="Introduceti adresa"  /><br />
+                    <Form.Label htmlFor="programStart">Introduceti ora la care incepe programul magazinului</Form.Label>
                     <Form.Control name="programStart" onChange={changeFormFields} type="time" placeholder="Introduceti ora la care incepe programul magazinului" /><br />
+                    <Form.Label htmlFor="programFinal">Introduceti ora la care se termina programul magazinului</Form.Label>
                     <Form.Control name="programFinal" onChange={changeFormFields} type="time" placeholder="Introduceti ora la care se termina programul magazinului" /><br />
+                    <Form.Label htmlFor="dataDeschiderii">Introduceti data la care a fost deschis magazinul</Form.Label>
                     <Form.Control name="dataDeschiderii" onChange={changeFormFields} type="date" placeholder="Introduceti data la care a fost deschis magazinul" /><br />
+                    <Form.Label htmlFor="idFranciza">Introduceti id-ul francizei la care apartine magazinul</Form.Label>
                     <Form.Control as="select" defaultValue="" name="idFranciza" onChange={changeFormFields} placeholder="Introduceti id-ul francizei la care apartine magazinul">
                         <option value="">Selectati franciza</option>
                         {francize.map(franciza => (

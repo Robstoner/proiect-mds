@@ -17,20 +17,20 @@ export default async function main(req: NextApiRequest, res: NextApiResponse) {
         return;
     }
 
-    // if (req.method === "contract") {
-    //     const magazinInfo = req.body;
+    if (req.method === "POST") {
+        const contractInfo = req.body;
 
-    //     const magazin = await prisma.$queryRaw`INSERT INTO magazin (adresa, programStart, programFinal, dataDeschiderii, idFranciza)
-    //                                             VALUES (${magazinInfo.adresa}, ${magazinInfo.programStart}, ${magazinInfo.programFinal}, ${magazinInfo.dataDeschiderii}, ${magazinInfo.idFranciza});`
+        const contract = await prisma.$queryRaw`INSERT INTO contract (dataInceput, dataFinal, idAngajat, idPost, idMagazin)
+                                                VALUES (${contractInfo.dataInceput}, ${contractInfo.dataFinal}, ${contractInfo.idAngajat}, ${contractInfo.idPost}, ${contractInfo.idMagazin});`
 
-    //     if (!magazin) {
-    //         res.status(500).json({ message: "Internal server error." });
-    //         return;
-    //     }
+        if (!contract) {
+            res.status(500).json({ message: "Internal server error." });
+            return;
+        }
 
-    //     res.status(200).json({ message: "Succesfully created magazin." });
-    //     return;
-    // }
+        res.status(200).json({ message: "Succesfully created contract." });
+        return;
+    }
 
     res.status(405).json({ message: "Method not allowed" });
     return;

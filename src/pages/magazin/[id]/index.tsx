@@ -61,10 +61,15 @@ export default function MagazinEdit() {
             <Container>
                 <h1>Edit Magazin</h1>
                 <Form>
+                    <Form.Label htmlFor="adresa">Introduceti adresa</Form.Label>
                     <Form.Control name="adresa" defaultValue={fields.adresa} onChange={changeFormFields} type="text" placeholder="Introduceti adresa" /><br />
+                    <Form.Label htmlFor="programStart">Introduceti ora la care incepe programul magazinului</Form.Label>
                     <Form.Control name="programStart" defaultValue={fields.programStart} onChange={changeFormFields} type="time" placeholder="Introduceti ora la care incepe programul magazinului" /><br />
+                    <Form.Label htmlFor="programFinal">Introduceti ora la care se termina programul magazinului</Form.Label>
                     <Form.Control name="programFinal" defaultValue={fields.programFinal} onChange={changeFormFields} type="time" placeholder="Introduceti ora la care se termina programul magazinului" /><br />
+                    <Form.Label htmlFor="dataDeschiderii">Introduceti data la care a fost deschis magazinul</Form.Label>
                     <Form.Control name="dataDeschiderii" defaultValue={fields.dataDeschiderii.toString().slice(0, 10)} onChange={changeFormFields} readOnly type="date" placeholder="Introduceti data la care a fost deschis magazinul" /><br />
+                    <Form.Label htmlFor="idFranciza">Introduceti id-ul francizei la care apartine magazinul</Form.Label>
                     <Form.Control as="select" defaultValue={fields.idFranciza} name="idFranciza" onChange={changeFormFields} placeholder="Introduceti id-ul francizei la care apartine magazinul">
                         {francize.map(franciza => (
                             <option key={franciza.id} value={franciza.id}>{franciza.numeDetinator}</option>

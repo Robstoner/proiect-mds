@@ -59,9 +59,13 @@ export default function PostEdit() {
             <Container>
                 <h1>Edit Post</h1>
                 <Form>
+                    <Form.Label htmlFor="titlu">Introduceti titlul postului</Form.Label>
                     <Form.Control name="titlu" defaultValue={fields.titlu} onChange={changeFormFields} type="text" placeholder="Introduceti titlul postului" /><br />
+                    <Form.Label htmlFor="salariu">Introduceti salariul postului</Form.Label>
                     <Form.Control name="salariu" defaultValue={fields.salariu} onChange={changeFormFields} type="number" placeholder="Introduceti salariul postului" /><br />
+                    <Form.Label htmlFor="programStart">Introduceti ora la care incepe programul postului</Form.Label>
                     <Form.Control name="programStart" defaultValue={fields.programStart} onChange={changeFormFields} type="time" placeholder="Introduceti ora la care incepe programul postului" /><br />
+                    <Form.Label htmlFor="programFinal">Introduceti ora la care se termina programul postului</Form.Label>
                     <Form.Control name="programFinal" defaultValue={fields.programFinal} onChange={changeFormFields} type="time" placeholder="Introduceti ora la care se termina programul postului" /><br />
                     
                     <Button variant="primary" type="submit" onClick={submitPost}>Submit</Button>

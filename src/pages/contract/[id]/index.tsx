@@ -63,20 +63,25 @@ export default function ContractEdit() {
             <Container>
                 <h1>Edit Contract</h1>
                 <Form>
+                    <Form.Label htmlFor="dataInceput">Introduceti data la care incepe contractul</Form.Label>
                     <Form.Control name="dataInceput" defaultValue={fields.dataInceput.toString().slice(0, 10)} onChange={changeFormFields} type="date" placeholder="Introduceti data la care incepe contractul" /><br />
+                    <Form.Label htmlFor="dataFinal">Introduceti data la care se termina contractul</Form.Label>
                     <Form.Control name="dataFinal" defaultValue={fields.dataFinal.toString().slice(0, 10)} onChange={changeFormFields} type="date" placeholder="Introduceti data la care se termina contractul" /><br />
+                    <Form.Label htmlFor="idAngajat">Introduceti id-ul angajatului la care apartine contractul</Form.Label>
                     <Form.Control as="select" defaultValue={fields.idAngajat} name="idAngajat" onChange={changeFormFields} placeholder="Introduceti id-ul angajatului la care apartine contractul">
                         <option key="" value={null}>Selectati un angajat</option>
                         {angajati.map(angajat => (
                             <option key={angajat.id} value={angajat.id}>{angajat.id}</option>
                         ), angajatiError)}
                     </Form.Control><br />
+                    <Form.Label htmlFor="idPost">Introduceti id-ul postului la care apartine contractul</Form.Label>
                     <Form.Control as="select" defaultValue={fields.idPost} name="idPost" onChange={changeFormFields} placeholder="Introduceti id-ul postului la care apartine contractul">
                         <option key="" value={null}>Selectati un Post</option>
                         {posturi.map(post => (
                             <option key={post.id} value={post.id}>{post.id}</option>
                         ), posturiError)}
                     </Form.Control><br />
+                    <Form.Label htmlFor="idMagazin">Introduceti id-ul magazinului la care apartine contractul</Form.Label>
                     <Form.Control as="select" defaultValue={fields.idMagazin} name="idMagazin" onChange={changeFormFields} placeholder="Introduceti id-ul magazinului la care apartine contractul">
                         <option key="" value={null}>Selectati un Magazin</option>
                         {magazine.map(magazin => (
