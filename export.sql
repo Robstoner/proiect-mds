@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2023 at 02:00 PM
+-- Generation Time: Jan 11, 2023 at 09:39 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.28
 
@@ -34,6 +34,16 @@ CREATE TABLE `angajat` (
   `dataAngajarii` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `angajat`
+--
+
+INSERT INTO `angajat` (`id`, `nume`, `prenume`, `dataAngajarii`) VALUES
+(1, 'Schmidt', 'Helmuth', '2023-01-11'),
+(2, 'Popescu', 'Alex', '2023-01-11'),
+(3, 'Gheorghe', 'Bogdan', '2022-12-27'),
+(4, 'Mihai', 'Iulian', '2023-01-11');
+
 -- --------------------------------------------------------
 
 --
@@ -48,6 +58,16 @@ CREATE TABLE `contract` (
   `idMagazin` int(11) DEFAULT NULL
 ) ;
 
+--
+-- Dumping data for table `contract`
+--
+
+INSERT INTO `contract` (`dataInceput`, `dataFinal`, `idAngajat`, `idPost`, `idMagazin`) VALUES
+('2022-12-27', '2024-12-01', 1, 1, 1),
+('2022-12-27', '2024-12-01', 2, 2, 1),
+('2022-12-27', '2024-12-01', 3, 3, 1),
+('2022-12-27', '2024-12-01', 4, 4, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -60,6 +80,16 @@ CREATE TABLE `franciza` (
   `numeDetinator` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `franciza`
+--
+
+INSERT INTO `franciza` (`id`, `locatie`, `numeDetinator`) VALUES
+(1, 'Romania, Bucuresti', 'Schmidt Robert'),
+(2, 'Romania, Cluj-Napoca', 'Doe John'),
+(3, 'Romania, Timisoara', 'Smith Jane'),
+(4, 'Romania, Iasi', 'Brown Michael');
+
 -- --------------------------------------------------------
 
 --
@@ -70,6 +100,17 @@ CREATE TABLE `istoric_oferte` (
   `idProdus` int(11) NOT NULL,
   `idOferta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `istoric_oferte`
+--
+
+INSERT INTO `istoric_oferte` (`idProdus`, `idOferta`) VALUES
+(3, 1),
+(4, 2),
+(5, 2),
+(5, 3),
+(6, 2);
 
 -- --------------------------------------------------------
 
@@ -86,6 +127,22 @@ CREATE TABLE `magazin` (
   `idFranciza` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `magazin`
+--
+
+INSERT INTO `magazin` (`id`, `adresa`, `programStart`, `programFinal`, `dataDeschiderii`, `idFranciza`) VALUES
+(1, 'Str. Drumul Taberei, Nr. 53', '10:00', '22:00', '2023-01-11', 1),
+(2, 'Str. Mihai Viteazul, Nr. 21', '09:00', '20:00', '2023-01-11', 1),
+(3, 'Str. 1 Mai, Nr. 2', '08:00', '18:00', '2023-01-11', 2),
+(4, 'Str. Mihai Eminescu, Nr. 3', '08:00', '18:00', '2023-01-11', 1),
+(5, 'Str. Ion Creanga, Nr. 4', '08:00', '18:00', '2023-01-11', 1),
+(6, 'Str. Vasile Alecsandri, Nr. 5', '08:00', '18:00', '2023-01-11', 2),
+(7, 'Str. Cara Anghel, Nr. 4', '08:00', '18:00', '2023-01-11', 2),
+(8, 'Soseaua Panduri, Nr. 4', '08:00', '18:00', '2023-01-11', 2),
+(9, 'Str. Mihail Sebastian, Nr. 5', '08:00', '18:00', '2023-01-11', 2),
+(10, 'Str. Iovita, Nr. 4', '08:00', '18:00', '2023-01-11', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -99,6 +156,15 @@ CREATE TABLE `oferta` (
   `dataFinal` date NOT NULL,
   `procentajReducere` float NOT NULL CHECK (`procentajReducere` > 0 and `procentajReducere` < 1)
 ) ;
+
+--
+-- Dumping data for table `oferta`
+--
+
+INSERT INTO `oferta` (`id`, `nume`, `dataInceput`, `dataFinal`, `procentajReducere`) VALUES
+(1, 'Carnuri inainte de revelion', '2022-12-30', '2022-12-31', 0.25),
+(2, 'Produse non-perisabile inainte de revelion', '2022-12-30', '2022-12-31', 0.15),
+(3, 'Lapte flash sale', '2023-01-01', '2023-01-02', 0.3);
 
 -- --------------------------------------------------------
 
@@ -114,6 +180,16 @@ CREATE TABLE `post` (
   `programFinal` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `post`
+--
+
+INSERT INTO `post` (`id`, `titlu`, `salariu`, `programStart`, `programFinal`) VALUES
+(1, 'Manager', 10000, '9:00', '16:00'),
+(2, 'Casier', 5000, '10:00', '18:00'),
+(3, 'Lucrator comercial', 6500, '08:00', '16:00'),
+(4, 'Lucrator comercial', 6500, '14:00', '20:00');
+
 -- --------------------------------------------------------
 
 --
@@ -126,6 +202,18 @@ CREATE TABLE `produs` (
   `pret` float NOT NULL CHECK (`pret` > 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `produs`
+--
+
+INSERT INTO `produs` (`id`, `nume`, `pret`) VALUES
+(1, 'Mere', 2.4),
+(2, 'Pere', 2.8),
+(3, 'Ceafa de porc', 35.99),
+(4, 'Suc', 2.99),
+(5, 'Lapte', 3.99),
+(6, 'Vin', 15.99);
+
 -- --------------------------------------------------------
 
 --
@@ -136,6 +224,18 @@ CREATE TABLE `produs_raion` (
   `idProdus` int(11) NOT NULL,
   `idRaion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `produs_raion`
+--
+
+INSERT INTO `produs_raion` (`idProdus`, `idRaion`) VALUES
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 4),
+(5, 3),
+(6, 4);
 
 -- --------------------------------------------------------
 
@@ -149,6 +249,16 @@ CREATE TABLE `raion` (
   `tipRaion` varchar(20) NOT NULL,
   `idMagazin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `raion`
+--
+
+INSERT INTO `raion` (`id`, `nume`, `tipRaion`, `idMagazin`) VALUES
+(1, 'Fructe', 'perisabile', 1),
+(2, 'Carne', 'congelate', 1),
+(3, 'Lactate', 'perisabile', 1),
+(4, 'Bauturi', 'non-perisabile', 1);
 
 --
 -- Indexes for dumped tables
@@ -229,19 +339,19 @@ ALTER TABLE `raion`
 -- AUTO_INCREMENT for table `angajat`
 --
 ALTER TABLE `angajat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `franciza`
 --
 ALTER TABLE `franciza`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `magazin`
 --
 ALTER TABLE `magazin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `oferta`
@@ -253,19 +363,19 @@ ALTER TABLE `oferta`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `produs`
 --
 ALTER TABLE `produs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `raion`
 --
 ALTER TABLE `raion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
