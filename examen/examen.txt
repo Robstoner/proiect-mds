@@ -1,0 +1,101 @@
+--1
+
+--REZOLVARE
+select distinct f.nume, f.website, a.nume, a.pret
+from formatie f
+join castiga c on f.id_formatie = c.id_formatie
+join competitie co on co.id_competitie = c.id_competitie
+join album a on a.id_formatie = f.id_formatie
+where upper(co.frecventa) like 'ANUAL'
+    and a.pret > 30;
+    
+--2
+
+--REZOLVARE
+select f.nume, f.data_lansare, count(a.id_album)
+from formatie f
+join castiga cas on f.id_formatie = cas.id_formatie
+join album a on a.id_formatie = f.id_formatie
+where not exists (select c.id_competitie
+                        from castiga c
+                        where f.id_formatie = c.id_formatie
+                        minus
+                        select co.id_competitie
+                        from competitie co
+                            where upper(co.frecventa) like 'BIANUAL')
+group by (f.nume, f.data_lansare);
+
+--3
+
+select a.id_album
+from album a
+where a.id_formatie = f.id_formatie
+    and a.data_l < c.data_d
+    and rownum = 1 ;
+
+select a.id_album
+from album a
+where a.id_formatie = 3
+order by a.data_l desc;
+
+select f.nume, c.loc_ocupat, a.id_album, a.nume
+from formatie f
+join castiga c on f.id_formatie = c.id_formatie
+join album a on a.id_formatie = f.id_formatie
+where a.id_album = (select al.id_album
+                    from album al
+                    where al.id_formatie = f.id_formatie
+                        and al.data_l < c.data_d
+                        and rownum = (select count(alb.id_album)
+                                        from album alb
+                                        where alb.id_formatie = f.id_formatie
+                                            and alb.data_l < c.data_d));
+
+select f.nume, c.loc_ocupat, a.id_album, a.nume
+from formatie f
+join castiga c on f.id_formatie = c.id_formatie
+join album a on a.id_formatie = f.id_formatie
+where a.id_album = (select al.id_album
+                    from album al
+                    where al.id_formatie = f.id_formatie
+                        and al.data_l < c.data_d
+                    order by al.data_l desc);
+
+--REZOLVARE
+--afiseaza toate albumele lansate inainte de data de decernare
+select f.nume, c.loc_ocupat, a.id_album, a.nume
+from formatie f
+join castiga c on f.id_formatie = c.id_formatie
+join album a on a.id_formatie = f.id_formatie and a.data_l < c.data_d;
+
+--4
+
+select a.id_formatie
+from album a
+where upper(a.gen) like 'POP';
+
+select *
+from formatie f
+where f.id_formatie in (select a.id_formatie
+                        from album a
+                        where upper(a.gen) like 'POP')
+    and f.id_formatie not in (select distinct id_formatie
+                            from castiga);
+
+--REZOLVARE
+--am considerat ca "nu au castigat premii" inseamna ca nu apar in tabelul castiga
+create or replace view formatii_pop as (select f.id_formatie, f.nume, f.data_lansare, f.data_retragere, f.website, f.tara_prov
+                                    from formatie f
+                                    where f.id_formatie in (select a.id_formatie
+                                                        from album a
+                                                        where upper(a.gen) like 'POP')
+                                        and f.id_formatie not in (select distinct id_formatie
+                                                            from castiga));
+
+insert into formatii_pop
+values (10, 'Formatie 1', '20-01-2023', NULL, 'www.formatie1.com', 'RO');
+
+commit;
+
+
+
