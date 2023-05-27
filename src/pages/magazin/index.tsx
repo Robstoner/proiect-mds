@@ -74,7 +74,7 @@ export default function MagazinView() {
                 <h1>View Magazin</h1>
 
                 <Button variant="primary" onClick={() => {
-                    Router.push("/oferta/create");
+                    Router.push("/magazin/create");
                 }}>Creeaza un Magazin</Button>
 
                 <Button variant="secondary" onClick={() => {
