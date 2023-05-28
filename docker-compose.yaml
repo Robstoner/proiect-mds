@@ -1,0 +1,27 @@
+services:
+  mysql:
+    image: mysql
+    # restart: always
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: mds
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+      MYSQL_ROOT_PASSWORD: pass
+    ports:
+      - 3306:3306
+    volumes:
+      - my-db:/var/lib/mysql
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    volumes:
+      - .:/app
+      
+
+volumes:
+  my-db:
+
