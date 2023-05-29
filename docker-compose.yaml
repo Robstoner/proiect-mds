@@ -1,6 +1,6 @@
 services:
   mysql:
-    image: mysql
+    image: mariadb
     # restart: always
     container_name: mysql
     environment:
